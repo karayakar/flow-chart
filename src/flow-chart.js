@@ -55,9 +55,7 @@ function drawLines() {
 }
 
 function movingPen() {
-    console.log(document);
     var canvas = document.getElementById('canvas');
-    console.log(canvas);
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
 
@@ -73,6 +71,17 @@ function movingPen() {
     }
 }
 (function (window, document) {
-    movingPen();
-
+    if (document.readyState === "complete"
+            || document.readyState === "loaded"
+            || document.readyState === "interactive") {
+        movingPen();
+        drawLines();
+        drawRectangle();
+    } else {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            movingPen();
+            drawLines();
+            drawRectangle();
+        });
+    }
 })(window, document);
